@@ -1,0 +1,23 @@
+{
+  "name": "f-player",
+  "version": "1.0.0",
+  "description": "Multimedia Interactive Player (MPD Client)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcaninov/f-player.git"
+  },
+  "author": "jcaninov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcaninov/f-player/issues"
+  },
+  "homepage": "https://github.com/jcaninov/f-player#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  }
+}

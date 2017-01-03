@@ -1,0 +1,5 @@
+.DS_*
+node_modules
+obj
+web/app/bower_components/
+.ntvs_analysis.dat

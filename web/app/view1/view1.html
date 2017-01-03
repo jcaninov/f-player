@@ -1,0 +1,32 @@
+<div>
+    <p>Busqueda</p>
+    <select name="tag" ng-model="tag" ng-options="o as o for o in tags" ></select>
+    <br/><br/>
+    <input type="text" size="40" name="tagValue" ng-model="tagValue" ng-keypress="onKeyEnter($event)"/>
+    <br/><br/>
+    <span ng-click="search()">Buscar</span>
+    <br/><br/>
+
+    <table border="1">
+        <tr>
+            <td><input type="checkbox" ng-model="grid.selectAll" ng-change="onSelectAll(grid.selectAll)"/></td>
+            <td>Artist</td>
+            <td>Title</td>
+            <td>File</td>
+        </tr>
+        <tr ng-repeat="row in datos" class="{{ row.selected ? 'bg-selected' : '' }}">
+            <td><input type="checkbox" ng-model="row.selected"/></td>
+            <td>{{row.artist}}</td>
+            <td>{{row.title}}</td>
+            <td>{{row.file}}</td>
+        </tr>
+    </table>
+    <br/><br/>
+    <label for="rfid">Rfid ID: </label>
+    <input name="rfid" type="text" ng-model="rfid"/>
+    <div>Read Card</div>
+    <br/><br/>
+    <span ng-click="savePlaylist()">Save Playlist!</span>
+    <br/><br/>
+    
+</div>

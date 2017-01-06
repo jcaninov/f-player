@@ -6,8 +6,24 @@ angular.module('myApp.view2', [])
     $scope.player = {};
 	$scope.player.playlistId = "123213DEPR",
 	$scope.player.queue = [];
+    $scope.rfid = "";
 
-    this.init = function() {
+    this.init = function () {
+        if (typeof (EventSource) !== "undefined") {
+            var source = new EventSource(config.urlMpdWs + '/update-stream');
+            source.addEventListener('rfidRead', function (e) {
+                $scope.rfid = JSON.parse(event.data);
+                if (!$scope.$$phase) {
+                    $scope.$apply();
+                }
+            });
+            source.addEventListener('error', function (e) {
+                console.log("EventSource Error: " + event);
+            });
+        } else {
+            // Sorry! No server-sent events support..
+            console.log('SSE not supported by browser.');
+        }
     };
 
 	$scope.player.get = function(item) {

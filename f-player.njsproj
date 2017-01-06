@@ -18,7 +18,8 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
-    <Compile Include="controllers\rfid.js" />
+    <Compile Include="back\nfc-reader.js" />
+    <Compile Include="services\controllers\rfid.js" />
     <Compile Include="web\app\app.config.js" />
     <Compile Include="web\app\app.js" />
     <Compile Include="web\app\bower_components\angular-loader\angular-loader.js" />
@@ -60,14 +61,13 @@
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Compile Include="app.js" />
-    <Compile Include="controllers\lib\mpd.js" />
-    <Compile Include="controllers\search.js" />
-    <Compile Include="controllers\index.js" />
-    <Compile Include="controllers\player.js" />
+    <Compile Include="services\controllers\lib\mpd.js" />
+    <Compile Include="services\controllers\search.js" />
+    <Compile Include="services\controllers\index.js" />
+    <Compile Include="services\controllers\player.js" />
     <Content Include="web\.bowerrc" />
     <Content Include="web\.jshintrc" />
     <Content Include="web\.travis.yml" />
-    <Content Include="web\app\app.css" />
     <Content Include="web\app\bower_components\angular-loader\.bower.json" />
     <Content Include="web\app\bower_components\angular-loader\angular-loader.min.js.map" />
     <Content Include="web\app\bower_components\angular-loader\bower.json" />
@@ -154,6 +154,9 @@
     <Content Include="web\app\bower_components\html5-boilerplate\src\robots.txt" />
     <Content Include="web\app\bower_components\html5-boilerplate\src\tile-wide.png" />
     <Content Include="web\app\bower_components\html5-boilerplate\src\tile.png" />
+    <Content Include="web\app\css\app.css" />
+    <Content Include="web\app\css\paper.bootstrap.css" />
+    <Content Include="web\app\css\paper.bootstrap.min.css" />
     <Content Include="web\app\index-async.html" />
     <Content Include="web\app\index.html" />
     <Content Include="web\app\view1\view1.html" />
@@ -161,25 +164,21 @@
     <Content Include="web\bower.json" />
     <Content Include="web\LICENSE" />
     <Content Include="web\package.json" />
-    <Content Include="web\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="controllers" />
-    <Folder Include="controllers\lib\" />
-    <Folder Include="helpers" />
-    <Folder Include="middlewares" />
-    <Folder Include="models" />
-    <Folder Include="public" />
-    <Folder Include="public\css" />
-    <Folder Include="public\img" />
-    <Folder Include="public\libs" />
-    <Folder Include="tests" />
-    <Folder Include="tests\controllers" />
-    <Folder Include="tests\helpers" />
-    <Folder Include="tests\integration" />
-    <Folder Include="tests\middlewares" />
-    <Folder Include="tests\models" />
-    <Folder Include="tests\ui" />
+    <Folder Include="services\controllers\" />
+    <Folder Include="services\controllers\lib\" />
+    <Folder Include="services\helpers\" />
+    <Folder Include="services\middlewares\" />
+    <Folder Include="services\models\" />
+    <Folder Include="services\" />
+    <Folder Include="services\tests\" />
+    <Folder Include="services\tests\controllers\" />
+    <Folder Include="services\tests\helpers\" />
+    <Folder Include="services\tests\integration\" />
+    <Folder Include="services\tests\middlewares\" />
+    <Folder Include="services\tests\models\" />
+    <Folder Include="services\tests\ui\" />
     <Folder Include="web\" />
     <Folder Include="web\app\" />
     <Folder Include="web\app\bower_components\" />
@@ -203,9 +202,11 @@
     <Folder Include="web\app\bower_components\html5-boilerplate\test\" />
     <Folder Include="web\app\components\" />
     <Folder Include="web\app\components\version\" />
+    <Folder Include="web\app\css\" />
     <Folder Include="web\app\view1\" />
     <Folder Include="web\app\view2\" />
     <Folder Include="web\e2e-tests\" />
+    <Folder Include="back\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->

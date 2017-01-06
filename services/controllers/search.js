@@ -1,9 +1,8 @@
 ﻿var express = require('express'),
 	router = express.Router(), 
-	events = require('events'), 
-	eventEmitter = new events.EventEmitter();
+	events = require('events');
 
-module.exports = function(mpdClient){
+module.exports = function(mpdClient, eventEmitter){
 	var datos = {};
 
 	router.get('/search/:tag/:tagValue', function (req, res) {
@@ -30,31 +29,6 @@ module.exports = function(mpdClient){
 		res.end();
 	});
 
-	router.get('/update-stream', function(req, res) {
-		var sse = startSees(res);
-		eventEmitter.on("searchResultsFound", sendChat);
-		req.once("end", function () {
-			eventEmitter.removeListener("searchResultsFound", sendChat);
-		});
-		function startSees() {
-			res.writeHead(200, {
-				'Content-Type': 'text/event-stream',
-				'Cache-Control': 'no-cache',
-				'Connection': 'keep-alive'
-			});
-			res.write("\n");
-        
-			return function sendSse(name, data, id) {
-				res.write("event: " + name + "\n");
-				if (id) res.write("id: " + id + "\n");
-				res.write("data: " + data + "\n\n");
-			};
-		}
-		function sendChat() {
-			sse("message", JSON.stringify(datos));
-		}
-	});
-
 	function searchFiles(tag, value)
 	{
 		var params = {};
@@ -77,7 +51,7 @@ module.exports = function(mpdClient){
 			});
 		});
 		datos = items;
-		eventEmitter.emit('searchResultsFound');
+		eventEmitter.emit('searchResultsFound', datos);
 	}
 
 	return router;

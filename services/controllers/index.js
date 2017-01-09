@@ -13,9 +13,9 @@ var express = require('express')
 		console.log("->-> Evento: " + state.type);
 	});
 
-	router.get('/', function (req, res) {
-		res.end();
-	});
+	//router.get('/', function (req, res) {
+	//	res.end();
+	//});
 
 	router.use('/', require('./search.js')(mpd_client, eventEmitter));
 	router.use('/', require('./rfid.js')(eventEmitter));

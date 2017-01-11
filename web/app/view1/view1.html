@@ -1,32 +1,142 @@
-<div>
-    <p>Busqueda</p>
-    <select name="tag" ng-model="tag" ng-options="o as o for o in tags" ></select>
-    <br/><br/>
-    <input type="text" size="40" name="tagValue" ng-model="tagValue" ng-keypress="onKeyEnter($event)"/>
-    <br/><br/>
-    <span ng-click="search()">Buscar</span>
-    <br/><br/>
+<div class="container-fluid">
+   <div class="row justify-content-center">
+      <div class="col-lg-6">
+         <div class="panel panel-primary">
+            <div class="panel-heading">
+               <h3 class="panel-title">Panel primary</h3>
+            </div>
+            <div class="panel-body">
+               <form class="form-horizontal">
+                  <div class="form-group">
+                     <label for="select" class="col-lg-2 control-label">Tag</label>
+                     <div class="col-lg-10">
+                        <select class="form-control" id="select1" name="tag" ng-model="tag" ng-options="o as o for o in tags">
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="tagValue" class="col-lg-2 control-label">Texto</label>
+                     <div class="col-lg-10">
+                        <input type="text" name="tagValue" ng-model="tagValue" ng-keypress="onKeyEnter($event)" class="form-control" id="Text1">
+                     </div>
+                  </div>
+                  <div class="clearfix hidden-sm-up"></div>
+                  <div class="col col-lg-offset-2">
+                     <!--<button type="reset" class="btn btn-default">Cancel</button>-->
+                     <button type="submit" class="btn btn-primary btn-lg" ng-click="search()">Buscar</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-4">
+         <form class="form-horizontal">
+            <legend>Card / Tag</legend>
+            <div class="form-group">
+               <label for="rfid" class="col-lg-2 control-label">Email</label>
+               <div class="col-lg-10">
+                  <input name="rfid" type="text" ng-model="rfid" class="form-control" id="rfid">
+               </div>
+            </div>
+            <div class="clearfix hidden-sm-up"></div>
+            <div class="form-group">
+               <div class="col-lg-10 col-lg-offset-2">
+                  <!--<button type="reset" class="btn btn-default">Cancel</button>-->
+                  <button type="submit" class="btn btn-default" ng-click="get('rfid')">leer tarjeta</button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
 
-    <table border="1">
-        <tr>
-            <td><input type="checkbox" ng-model="grid.selectAll" ng-change="onSelectAll(grid.selectAll)"/></td>
-            <td>Artist</td>
-            <td>Title</td>
-            <td>File</td>
-        </tr>
-        <tr ng-repeat="row in datos" class="{{ row.selected ? 'bg-selected' : '' }}">
-            <td><input type="checkbox" ng-model="row.selected"/></td>
-            <td>{{row.artist}}</td>
-            <td>{{row.title}}</td>
-            <td>{{row.file}}</td>
-        </tr>
-    </table>
-    <br/><br/>
-    <label for="rfid">Rfid ID: </label>
-    <input name="rfid" type="text" ng-model="rfid"/>
-    <div>Read Card</div>
-    <br/><br/>
-    <span ng-click="savePlaylist()">Save Playlist!</span>
-    <br/><br/>
-    
+   <div class="row">
+      <div class="col">
+         <table class="table table-striped table-hover ">
+            <thead>
+               <tr>
+                  <th>
+                     <input type="checkbox" ng-model="grid.selectAll" ng-change="onSelectAll(grid.selectAll)" /></th>
+                  <th>Artist</th>
+                  <th>Title</th>
+                  <th>File</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="row in datos" class="{{ row.selected ? 'warning' : '' }}">
+                  <td>
+                     <input type="checkbox" ng-model="row.selected" /></td>
+                  <td>{{row.artist}}</td>
+                  <td>{{row.title}}</td>
+                  <td>{{row.file}}</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="clearfix visible-xs-block"></div>
+   <div class="row">
+      <div class="col-md-6">
+         <table class="table table-striped table-hover ">
+            <thead>
+               <tr>
+                  <th>#</th>
+                  <th>Column heading</th>
+                  <th>Column heading</th>
+                  <th>Column heading</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>1</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+               </tr>
+               <tr>
+                  <td>2</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+               </tr>
+               <tr class="info">
+                  <td>3</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+               </tr>
+               <tr class="success">
+                  <td>4</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+               </tr>
+               <tr class="danger">
+                  <td>5</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+               </tr>
+               <tr class="warning">
+                  <td>6</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+               </tr>
+               <tr class="active">
+                  <td>7</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+   <div class="row justify-content-center">
+      <div class="col">
+         <a href="#" class="btn btn-success btn-lg" ng-click="savePlaylist()">Save Playlist!</a>
+      </div>
+   </div>
+
 </div>

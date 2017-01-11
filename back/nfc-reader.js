@@ -1,9 +1,10 @@
 ﻿var http = require('http'),
-    rc522 = require("rc522"), //require("rc522/build/Release/rc522")
+    rc522 = require("rc522"),
+	//rc522 = require("rc522/build/Release/rc522"),
     rfid = "XX1234XXTESTXX1234XX";
 
 
-module.exports = function (eventEmitter) {
+//module.exports = function (eventEmitter) {
     rc522(function (rfidSerialNumber) {
         rfid = rfidSerialNumber;
         console.log(rfidSerialNumber);
@@ -16,4 +17,4 @@ module.exports = function (eventEmitter) {
             // Do stuff with response
         });
     });
-}
+//}

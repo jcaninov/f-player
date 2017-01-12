@@ -4,6 +4,7 @@ angular.module('myApp.view1',[])
 
 .controller('View1Ctrl', ['$http', 'APP_CONFIG', '$scope', function($http, config, $scope) {
     $scope.datos = [],
+	$scope.playlist = [],
 	$scope.grid = {},
 	$scope.grid.selectAll = false,
 	$scope.rfid = "",
@@ -30,6 +31,7 @@ angular.module('myApp.view1',[])
         }
         this.get('tags');
 		this.get('rfid');
+		addEvents();
     };
 
 	this.get = function(item) {
@@ -45,8 +47,8 @@ angular.module('myApp.view1',[])
         $http.get(uri).then(function (response) {
         });
     };
-        
-    $scope.savePlaylist = function(){
+
+    $scope.savePlaylistToCard = function(){
 		if ($scope.datos.length <= 0 || $scope.rfid == "") return;
         var postData = {
 			id: $scope.rfid,
@@ -56,6 +58,15 @@ angular.module('myApp.view1',[])
         $http.post(uri, postData).then(function (response) {
         });
     };
+
+    $scope.emptyPlaylist = function(){
+		$scope.playlist = [];
+    };
+
+    $scope.addSelectedItemsToPlaylist = function(){
+		$scope.playlist = getDataToSave($scope.datos);
+	};
+        
 
     $scope.onKeyEnter = function(e){
         if (e.charCode == 13) {
@@ -68,6 +79,10 @@ angular.module('myApp.view1',[])
 			item.selected = state;
 		});
 	};
+
+	$scope.deleteFomPlaylist = function(id) {
+		console.log(id);
+	};
 		
 	var getDataToSave = function(datos) {
 		var response = [];
@@ -77,6 +92,27 @@ angular.module('myApp.view1',[])
 			}
 		});
 		return response;
+	};
+
+	var addEvents = function() {
+		//http://api.jqueryui.com/sortable/
+	    $("#tablePlaylist tbody")
+			.sortable({
+			    helper: fixHelper, 
+				update: onTableUpdate
+		    })
+			//.on( "sortupdate", function( event, ui ) {} );  
+	};
+
+	var onTableUpdate= function( event, ui ) {
+		console.log(ui);
+	};
+
+	var fixHelper = function(e, ui) {  
+	  ui.children().each(function() {  
+		$(this).width($(this).width());  
+	  });  
+	  return ui;  
 	};
 
     this.init();

@@ -13,7 +13,8 @@ module.exports = function (eventEmitter){
     
     router.get('/set-rfid/:id', function (req, res) {
         rfid = req.params.id;
-        //eventEmitter.emit("rfidRead", rfid);
+         //eventEmitter.emit("rfidRead", rfid);
+	res.end();
     });
 
 	router.get('/get-rfid', function (req, res) {

@@ -12,7 +12,9 @@ module.exports = function (eventEmitter){
     });
 
 	router.get('/get-rfid', function (req, res) {
-        rfid = fs.readFileSync('back/rfid.txt', 'utf8');
+        var fcontent = fs.readFileSync('rfid.txt', 'utf8');
+	var fparsed = fcontent.split(/(\n)/);
+	rfid = fparsed[fparsed.length-1];
         res.send(rfid);
     });
 

@@ -2,19 +2,27 @@
  
 var rc522 = require("rc522/build/Release/rc522"),
 //http = require("http-debug").http,
-events = require("events"),
+var events = require("events"),
 emitter = new events.EventEmitter(),
-rfid = "XX1234XXTESTXX1234XX";
+rfid = "";
+var fs = require('fs');
 
-http.debug = 2;
+//http.debug = 2;
 
 function saveId(id){
 
-	http.get('http://localhost:3000/set-rfid/ss'+id, function(err,res) {
+	fs.writeFile("rfid.txt", id, function(err) {
+	    if(err) {
+	        return console.log(err);
+	    }
+	    console.log("The file was saved!");
+	}); 
+
+/*	http.get('http://localhost:3000/set-rfid/ss'+id, function(err,res) {
 		if (err) console.trace(err);
 	        console.log("Result: "+res.statusCode);
         });
-
+*/
 
 /*
 var options = {
@@ -47,7 +55,6 @@ emitter.on('saveId', saveId);
 rc522(function (rfidSerialNumber) {
     rfid = rfidSerialNumber;
     console.log(rfidSerialNumber);
-emitter.emit('saveId',rfidSerialNumber);
-
+	emitter.emit('saveId',rfidSerialNumber);
 });
 

@@ -1,24 +1,19 @@
 ﻿var express = require('express'),
     router = express.Router(),
-    rc522 = require("rc522"), //require("rc522/build/Release/rc522")
-    rfid = "123213DEPRUEBA982093";
+    fs = require('fs'),
+    rfid = "1234DEFAULTRFID1234";
 
 
 module.exports = function (eventEmitter){
-    
-    //rc522(function (rfidSerialNumber) {
-    //    rfid = rfidSerialNumber;
-    //    eventEmitter.emit("rfidRead",rfid);
-    //});
-    
+   
     router.get('/set-rfid/:id', function (req, res) {
         rfid = req.params.id;
-         //eventEmitter.emit("rfidRead", rfid);
-	res.end();
+	    res.end();
     });
 
 	router.get('/get-rfid', function (req, res) {
-		res.send(rfid);
+        rfid = fs.readFileSync('back/rfid.txt', 'utf8');
+        res.send(rfid);
     });
 
 	return router;

@@ -13,9 +13,9 @@ module.exports = function (eventEmitter){
 
 	router.get('/get-rfid', function (req, res) {
         var fcontent = fs.readFileSync('rfid.txt', 'utf8');
-        var fparsed = fcontent.split(/(\n)/).reverse();
+        var fparsed = fcontent.split(/(\n)/).reverse().slice(0,10);
         for (var i = 0; i < fparsed.length; i++) {
-            if (fparsed[i] != "" && fparsed[i] != "\n" && fparsed[i].indexOf('Rfid') == -1) {
+            if (fparsed[i] != "" && fparsed[i] != "\n") {
                 rfid = fparsed[i];
                 break;
             }

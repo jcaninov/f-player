@@ -9,7 +9,7 @@ angular.module('myApp.view1',[])
 	$scope.grid.selectAll = false,
 	$scope.rfid = "",
 	$scope.tags = [],
-    $scope.tagValue = "pugli",
+    $scope.tagValue = "",
     $scope.tag = 'artist',
 	$scope.player = {};
         
@@ -29,19 +29,19 @@ angular.module('myApp.view1',[])
             // Sorry! No server-sent events support..
             console.log('SSE not supported by browser.');
         }
-        this.get('tags');
-		this.get('rfid');
+        this.getItem('tags');
+		this.getItem('rfid');
 		addEvents();
     };
 
-	this.get = function(item) {
+	this.getItem = function(item) {
         var uri = config.urlMpdWs + "/get-" + item;
         $http.get(uri).then(function (response) {
             $scope[item] = response.data;
         });
     };
-	$scope.player.get = this.get;
-
+	$scope.player.get = this.getItem;
+        
     $scope.search = function() {
         var uri = config.urlMpdWs + "/search/" + $scope.tag + "/" + $scope.tagValue;
         $http.get(uri).then(function (response) {

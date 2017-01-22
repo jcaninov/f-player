@@ -18,7 +18,7 @@ var express = require('express')
 	//});
 
 	router.use('/', require('./search.js')(mpd_client, eventEmitter));
-	router.use('/', require('./rfid.js')(eventEmitter));
+	router.use('/', require('./rfid.js')(mpd_client, eventEmitter));
 	router.use('/player', require('./player.js')(mpd_client));
     
     router.get('/update-stream', function (req, res) {

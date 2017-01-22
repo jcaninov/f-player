@@ -7,6 +7,10 @@ button.watch(function (err, value) {
         throw err;
     }
     
+    http.get('http://localhost:3000/load-playlist-from-rfid', function(err,res) {
+    	    if (err) console.trace(err);
+        });
+
     led.writeSync(value);
 });
 

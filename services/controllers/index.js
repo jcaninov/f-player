@@ -5,10 +5,10 @@ var express = require('express')
     , eventEmitter = new events.EventEmitter();
 
 	var mpd_client = new MPD(6600, 'localhost');
-	mpd_client.enableLogging();
-	mpd_client.on('Connect', function (){
-		mpd_client.updateDatabase();
-	});
+	//mpd_client.enableLogging();
+	//mpd_client.on('Connect', function (){
+	//	mpd_client.updateDatabase();
+	//});
 	mpd_client.on('Event', function (state) {
 		console.log("->-> Evento: " + state.type);
 	});

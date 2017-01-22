@@ -24,7 +24,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
             .otherwise({ redirectTo: '/view1' });
     }])
 .constant('APP_CONFIG', {
-    urlMpdWs: 'http://localhost:3000', 
+    urlMpdWs: '', 
     dbName: 'ascrum' 
     
 });

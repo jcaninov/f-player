@@ -22,7 +22,7 @@ module.exports = function (mpdClient, eventEmitter){
         res.end();
     });
     
-    fs.watchFile(rfidFile, (curr, prev) => {
+    fs.watchFile(rfidFile, { persistent:true, interval: 1000 },(curr, prev) => {
         var fcontent = fs.readFileSync(rfidFile, 'utf8');
         var fparsed = fcontent.split(/(\n)/).reverse().slice(0, 10);
         for (var i = 0; i < fparsed.length; i++) {
@@ -38,7 +38,7 @@ module.exports = function (mpdClient, eventEmitter){
         if (newRfid != rfid){
             rfidOld = rfid;
             rfid = newRfid;
-            eventEmitter.emit("rfidRead",rfid);
+            //eventEmitter.emit("rfidRead",rfid);
             play(rfid);
         }
     }

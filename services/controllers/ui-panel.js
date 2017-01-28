@@ -1,4 +1,5 @@
 ﻿var Gpio = require('onoff').Gpio,
+    http = require('http'),
     led = new Gpio(14, 'out'),
     button = new Gpio(4, 'in', 'both');
 

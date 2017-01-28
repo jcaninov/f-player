@@ -3,7 +3,7 @@ var express = require('express')
 	, MPD = require("./lib/mpd.js")
     , events = require('events')
     , eventEmitter = new events.EventEmitter()
-    , UiPanel = require('./uiPanel');
+    , UiPanel = require('./ui-panel');
 
 	var mpd_client = new MPD(6600, 'localhost');
 	//mpd_client.enableLogging();

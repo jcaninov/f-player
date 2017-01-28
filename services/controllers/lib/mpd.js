@@ -1001,6 +1001,7 @@ var MPD = function(_port, _host, _password){
         });
         wSocket.on('close', function(obj){ 
             console.log("||---- webSocket event CLOSE ---->>> "+obj.toString()); 
+            if (!obj) callHandler('SocketClosed',false);
         });
 
         wSocket.on('end',onDisconnect);
@@ -1797,7 +1798,7 @@ var MPD = function(_port, _host, _password){
      */
     function on(event_name, handler){
 
-        var acceptable_handlers = ['Error', 'Event', 'UnhandledEvent', 'DatabaseChanging', 'DatabaseUpdated','AuthFailure', 'DataLoaded', 'StateChanged', 'OutputChanged', 'QueueChanged', 'PlaylistsChanged', 'PlaylistChanged','Connect', 'Disconnect'];
+        var acceptable_handlers = ['Error', 'Event', 'UnhandledEvent', 'DatabaseChanging', 'DatabaseUpdated','AuthFailure', 'DataLoaded', 'StateChanged', 'OutputChanged', 'QueueChanged', 'PlaylistsChanged', 'PlaylistChanged','Connect', 'Disconnect', 'SocketClosed'];
 
         if(acceptable_handlers.indexOf(event_name) === -1){
             throw new Error("'"+event_name+"' is not a supported event");

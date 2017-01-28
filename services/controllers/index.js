@@ -14,6 +14,11 @@ var express = require('express')
 		//console.log("->-> Evento: " + state.type);
 	});
 
+    mpd_client.on('SocketClosed', function(){
+        console.log('SocketClosed -> new connection!')
+        mpd_client = new MPD(6600, 'localhost');
+    });
+
     var uiPanel = new UiPanel(mpd_client, eventEmitter);
 
 	router.use('/', require('./search.js')(mpd_client, eventEmitter));

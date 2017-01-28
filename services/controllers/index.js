@@ -2,7 +2,8 @@ var express = require('express')
 	, router = express.Router()
 	, MPD = require("./lib/mpd.js")
     , events = require('events')
-    , eventEmitter = new events.EventEmitter();
+    , eventEmitter = new events.EventEmitter()
+    , UiPanel = require('./uiPanel');
 
 	var mpd_client = new MPD(6600, 'localhost');
 	//mpd_client.enableLogging();
@@ -10,12 +11,10 @@ var express = require('express')
 	//	mpd_client.updateDatabase();
 	//});
 	mpd_client.on('Event', function (state) {
-		console.log("->-> Evento: " + state.type);
+		//console.log("->-> Evento: " + state.type);
 	});
 
-	//router.get('/', function (req, res) {
-	//	res.end();
-	//});
+    var uiPanel = new UiPanel(mpd_client, eventEmitter);
 
 	router.use('/', require('./search.js')(mpd_client, eventEmitter));
 	router.use('/', require('./rfid.js')(mpd_client, eventEmitter));
@@ -44,19 +43,15 @@ var express = require('express')
         }
         function registerEvents() {
             eventEmitter.on("searchResultsFound", sendSearchResults);
-            eventEmitter.on("rfidRead", sendRfidRead);
+            //eventEmitter.on("rfidRead", sendRfidRead);
             req.once("end", function () {
                 eventEmitter.removeListener("searchResultsFound", sendSearchResults);
-                eventEmitter.removeListener("rfidRead", sendRfidRead);
+                //eventEmitter.removeListener("rfidRead", sendRfidRead);
             });
         };
         function sendRfidRead(rfid) {
-            sse("rfidRead", JSON.stringify(rfid));
+           // sse("rfidRead", JSON.stringify(rfid));
         };
     });
-
-	//router.get('/', function(req, res) {
-	//  res.render('index')
-	//})
 
 module.exports = router;

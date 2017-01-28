@@ -20,6 +20,7 @@
   <ItemGroup>
     <Compile Include="back\nfc-reader.js" />
     <Compile Include="back\rfid-log.js" />
+    <Compile Include="back\ui-panel.js" />
     <Compile Include="services\controllers\rfid.js" />
     <Compile Include="web\app\app.config.js" />
     <Compile Include="web\app\app.js" />

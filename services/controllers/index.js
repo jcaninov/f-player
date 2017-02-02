@@ -3,7 +3,7 @@ var express = require('express')
 	, MPD = require("./lib/mpd.js")
     , events = require('events')
     , eventEmitter = new events.EventEmitter()
-    , UiPanel = require('./ui-panel');
+    //, UiPanel = require('./ui-panel')
 
 	var mpd_client = new MPD(6600, 'localhost');
 	//mpd_client.enableLogging();
@@ -14,12 +14,12 @@ var express = require('express')
 		//console.log("->-> Evento: " + state.type);
 	});
 
-    mpd_client.on('SocketClosed', function(){
-        console.log('SocketClosed -> new connection!')
-        mpd_client = new MPD(6600, 'localhost');
-    });
+    //mpd_client.on('SocketClosed', function(){
+    //    console.log('SocketClosed -> new connection!')
+    //    mpd_client = new MPD(6600, 'localhost');
+    //});
 
-    var uiPanel = new UiPanel(mpd_client, eventEmitter);
+    //var uiPanel = new UiPanel(mpd_client, eventEmitter);
 
 	router.use('/', require('./search.js')(mpd_client, eventEmitter));
 	router.use('/', require('./rfid.js')(mpd_client, eventEmitter));

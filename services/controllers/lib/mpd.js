@@ -1001,7 +1001,7 @@ var MPD = function(_port, _host, _password){
         });
         wSocket.on('close', function(obj){ 
             console.log("||---- webSocket event CLOSE ---->>> "+obj.toString()); 
-            if (!obj) callHandler('SocketClosed',false);
+            callHandler('SocketClosed',obj,true);
         });
 
         wSocket.on('end',onDisconnect);
@@ -1744,7 +1744,7 @@ var MPD = function(_port, _host, _password){
      * deal with getting an error during initial data load
      */
     function cancelLoad(error){
-        _private.socket.end();
+        //_private.socket.end();
         _private.commandHandlers = [];
         _private.command_queue = [];
         _private.state.connected = false;

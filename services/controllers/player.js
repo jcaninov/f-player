@@ -82,9 +82,14 @@ module.exports = function(mpdClient){
 		});
 	});
 
-	router.get('/load-playlist/:id', function (req, res) {
-		mpdClient.loadPlaylistIntoQueue(req.params.id);
-		res.end();
+    router.get('/load-playlist/:id', function (req, res) {
+        var pls = mpdClient.getPlaylists();
+        if (pls.indexOf(req.params.id) == -1) {
+            res.send('No playlist found with ID: ' + req.params.id);
+        } else {
+            mpdClient.loadPlaylistIntoQueue(req.params.id);
+            res.end();
+        }
 	});
 
 	this.parseSongs = function(songList) {

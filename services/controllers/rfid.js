@@ -43,9 +43,14 @@ module.exports = function (mpdClient, eventEmitter){
         }
     }
 
-    function play(playlistId){
-        mpdClient.loadPlaylistIntoQueue(playlistId);
-        mpdClient.play();
+    function play(playlistId) {
+        var pls = mpdClient.getPlaylists();
+        if (pls.indexOf(playlistId) == -1) {
+            console.log('No playlist found with ID: ' + playlistId);
+        } else {
+            mpdClient.loadPlaylistIntoQueue(playlistId);
+            mpdClient.play();
+        }
     }
 
 	return router;

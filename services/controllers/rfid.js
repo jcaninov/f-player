@@ -1,6 +1,6 @@
 ﻿var express = require('express'),
     router = express.Router(),
-    fs = require('fs'),
+    //fs = require('fs'),
     rfid = '1234DEFAULTRFID1234',
     rfidOld = rfid,
     rfidFile = 'rfid.txt';
@@ -9,7 +9,8 @@
 module.exports = function (mpdClient, eventEmitter){
    
     router.get('/set-rfid/:id', function (req, res) {
-        rfid = req.params.id;
+        //rfid = req.params.id;
+        notifyNewRfid(req.params.id);
 	    res.end();
     });
 
@@ -21,7 +22,7 @@ module.exports = function (mpdClient, eventEmitter){
         play(rfid);
         res.end();
     });
-    
+    /*
     fs.watchFile(rfidFile, { persistent:true, interval: 1000 },(curr, prev) => {
         var fcontent = fs.readFileSync(rfidFile, 'utf8');
         var fparsed = fcontent.split(/(\n)/).reverse().slice(0, 10);
@@ -33,7 +34,7 @@ module.exports = function (mpdClient, eventEmitter){
         }
                 
     });
-
+    */
     function notifyNewRfid(newRfid) {
         if (newRfid != rfid){
             rfidOld = rfid;

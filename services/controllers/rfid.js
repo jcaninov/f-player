@@ -3,7 +3,8 @@
     //fs = require('fs'),
     rfid = '1234DEFAULTRFID1234',
     rfidOld = rfid,
-    rfidFile = 'rfid.txt';
+    rfidFile = 'rfid.txt',
+    autoplay = true;
 
 
 module.exports = function (mpdClient, eventEmitter){
@@ -22,6 +23,15 @@ module.exports = function (mpdClient, eventEmitter){
         play(rfid);
         res.end();
     });
+
+    router.get('/autoplay-on', function (req, res) {
+        autoplay = true;
+    });
+
+    router.get('/autoplay-off', function (req, res) {
+        autoplay = false;
+    });
+
     /*
     fs.watchFile(rfidFile, { persistent:true, interval: 1000 },(curr, prev) => {
         var fcontent = fs.readFileSync(rfidFile, 'utf8');
@@ -40,11 +50,13 @@ module.exports = function (mpdClient, eventEmitter){
             rfidOld = rfid;
             rfid = newRfid;
             //eventEmitter.emit("rfidRead",rfid);
-            play(rfid);
+            if (autoplay) {
+                play(rfid);
+            }
         }
     }
 
-    function play(playlistId) {
+    function play(playlistId) {        
         var pls = mpdClient.getPlaylists();
         if (pls.indexOf(playlistId) == -1) {
             console.log('No playlist found with ID: ' + playlistId);

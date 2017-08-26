@@ -6,4 +6,4 @@ mpc update --wait
 echo ":: Run node server.js :: " ; echo ;
 node server.js > server.info 2> server.err &
 echo ":: Run node arduread.py ::" ; echo ;
-python arduread.py > rfid.txt 2> rfid.err &
+sudo python back/arduread.py > rfid.txt 2> rfid.err & 

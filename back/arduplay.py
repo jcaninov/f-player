@@ -36,7 +36,7 @@ def execute():
 					print("Error parsing JSON: ",clean)
 					print(e)		
 					if e == "Not connected":
-						createMpdClient()
+						mpdclient = createMpdClient()
 		time.sleep(0.001)
 
 def printRfid(elem):
@@ -111,7 +111,7 @@ def loadplaylist(value):
 		openurl('http://localhost:3000/set-rfid/' + value)
 	except Exception as e:
 		print("Error loading playlist: ", e)
-		createMpdClient()
+		mpdclient = createMpdClient()
 		
 	 
 	

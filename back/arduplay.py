@@ -1,7 +1,7 @@
 import serial
 import time
-#import urllib2
-import urllib
+import urllib2
+#import urllib
 import re
 import json
 from mpd import MPDClient
@@ -9,15 +9,8 @@ from mpd import MPDClient
 ser=serial.Serial('/dev/ttyACM0',9600)
 #ser=serial.Serial('COM3',9600)
 
-def createMpdClient():
-	client = MPDClient()               # create client object
-	client.timeout = 10                # network timeout in seconds (floats allowed), default: None
-	client.idletimeout = None          # timeout for fetching the result of the idle command is handled seperately, default: None
-	client.connect("localhost", 6600)  # connect to localhost:6600
-	print(client.mpd_version)          # print the MPD version
-	print(client.find("any", "house")) # print result of the command "find any house"
-	client.close()                     # send the close command
-	client.disconnect()                # disconnect from the server
+mode="client"
+#mode="url"
 
 def execute():
 	#print(button)
@@ -31,24 +24,24 @@ def execute():
 					#print("CLEAN: [ ", clean, " ]")
 					elem = json.loads(clean)
 					#print(elem)
-				except:
+					if 'rfid' in elem:
+						printRfid(elem)
+					else:
+						printbut(button, elem['but'])
+					#save_to_db(elem)								
+					#print(result)				
+				except ValueError as e:
+					print("invalid Json: ",clean)
+				except Exception as e:
 					print("Error parsing JSON: ",clean)
+					print(e)
 
-				if elem && 'rfid' in elem:
-					printRfid(elem)
-				else:
-				#	uri = 'http://localhost:3000/set-rfid/' + elem.rfid.lower()
-				#	urllib.urlopen(uri)		
-					printbut(button, elem['but'])
-				#save_to_db(elem)								
-				#print(result)				
 		time.sleep(0.001)
 
 def printRfid(elem):
 	rfid = elem['rfid'].replace(" ","")
 	print("Read Card: ", rfid);		
-	uri = 'http://localhost:3000/set-rfid/' + rfid.lower()
-	urllib.urlopen(uri)		
+	dovalue("playlist", rfid)
 
 def printbut(button, elem):
 	print(elem);
@@ -69,9 +62,61 @@ def save_to_db(elem):
 
 def do(action):	
 	if (action):
-		uri = 'http://localhost:3000/player/' + action
+		if(mode=="client"):
+			dompd(action)
+		else:
+			uri = 'http://localhost:3000/player/' + action
+			#print(uri)
+			urllib.urlopen(uri)		
+
+def dovalue(action, value):
+	if(action):
+		if(mode=="client"):
+			dompd(action, value)
+		else:
+			uri = 'http://localhost:3000/set-rfid/' + value
+			#print(uri)
+			urllib.urlopen(uri)		
+
+
+def dompd(action, *value):
+	if (action=="play"):
+		mpdclient.play()
+	elif (action=="stop"):
+		mpdclient.stop()
+	elif (action=="next"):
+		mpdclient.next()
+	elif (action=="prev"):
+		mpdclient.previous()
+	elif (action=="band"):
+		print(mpdclient.playlist())
+	elif (action=="preset +"):
+		printplaylist(mpdclient.playlistinfo())
+	elif (action=="preset -"):
+		print("playlist clear", mpdclient.clear())
+	elif (action=="playlist"):
+		print("Load playlist ", value)
+		#lista = mpdclient.listplaylist(value[0])
+		#print("Lista:", lista)
+		mpdclient.stop()
+		mpdclient.clear()
+		mpdclient.load(value[0])
+		printplaylist(mpdclient.playlistinfo())
+		mpdclient.play()
+		openurl('http://localhost:3000/set-rfid/' + value[0])
+
+def printplaylist(playlist):
+	print("  -----  ")
+	for song in playlist:
+		print(song['file'])
+
+def openurl(uri):
+	try:
 		#print(uri)
-		urllib.urlopen(uri)		
+		urllib2.urlopen(uri)		
+	except Exception as e:
+		print("Error opening url ",uri)
+		print(e)
 
 
 def getButtons():
@@ -82,7 +127,7 @@ def getButtons():
 	button['play'] = { 'max':175, 'min': 169 }
 	button['sound'] = { 'max':7, 'min': 6 }	
 	button['preset +'] = { 'max':9, 'min': 8 }
-	button['preset-'] = { 'max':3, 'min': 2 }
+	button['preset -'] = { 'max':3, 'min': 2 }
 	button['sleep'] = { 'max':740, 'min': 735 }
 	button['disp-mem'] = { 'max':33, 'min': 29 }
 	button['mode'] = { 'max':17, 'min': 16 }
@@ -96,6 +141,20 @@ def getButtons():
 	#	button['wakeup'] = { 'max':85, 'min': 84 }
 	return button
 
+
+def createMpdClient():
+	client = MPDClient()               # create client object
+	client.timeout = 10                # network timeout in seconds (floats allowed), default: None
+	client.idletimeout = None          # timeout for fetching the result of the idle command is handled seperately, default: None
+	client.connect("localhost", 6600)  # connect to localhost:6600
+	#print(client.mpd_version)          # print the MPD version
+	#print(client.find("artist", "manu")) # print result of the command "find any house"
+	#client.close()                     # send the close command
+	#client.disconnect()                # disconnect from the server
+	return client
+
+
+mpdclient = createMpdClient();
 button = getButtons();
 
 #print(button)

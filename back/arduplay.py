@@ -34,8 +34,9 @@ def execute():
 					print("invalid Json: ",clean)
 				except Exception as e:
 					print("Error parsing JSON: ",clean)
-					print(e)
-
+					print(e)		
+					if e == "Not connected":
+						createMpdClient()
 		time.sleep(0.001)
 
 def printRfid(elem):
@@ -95,15 +96,25 @@ def dompd(action, *value):
 	elif (action=="preset -"):
 		print("playlist clear", mpdclient.clear())
 	elif (action=="playlist"):
-		print("Load playlist ", value)
-		#lista = mpdclient.listplaylist(value[0])
-		#print("Lista:", lista)
-		mpdclient.stop()
-		mpdclient.clear()
-		mpdclient.load(value[0])
+		loadplaylist(value[0])
+
+def loadplaylist(value):
+	print("Load playlist ", value)
+	#lista = mpdclient.listplaylist(value[0])
+	#print("Lista:", lista)
+	mpdclient.stop()
+	mpdclient.clear()
+	try:
+		mpdclient.load(value)
 		printplaylist(mpdclient.playlistinfo())
 		mpdclient.play()
-		openurl('http://localhost:3000/set-rfid/' + value[0])
+		openurl('http://localhost:3000/set-rfid/' + value)
+	except Exception as e:
+		print("Error loading playlist: ", e)
+		createMpdClient()
+		
+	 
+	
 
 def printplaylist(playlist):
 	print("  -----  ")

@@ -164,10 +164,11 @@ def createMpdClient():
 	return client
 
 def setMpdClient():
-	mpdclient = createMpdClient();	
+	global mpdclient
+	mpdclient = createMpdClient()
 
-mpdclient = createMpdClient();
-button = getButtons();
+mpdclient = createMpdClient()
+button = getButtons()
 
 #print(button)
 execute()

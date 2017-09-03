@@ -11,6 +11,7 @@ ser=serial.Serial('/dev/ttyACM0',9600)
 
 mode="client"
 #mode="url"
+lastEntry = { "time": time.time(), "but": '' }
 
 def execute():
 	#print(button)
@@ -44,6 +45,9 @@ def printRfid(elem):
 	dovalue("playlist", rfid)
 
 def printbut(button, elem):
+	global lastEntry
+	if (time.time() == lastBut["time"]):
+		return
 	print(elem);
 	for but in button:
 		bmin = button[but]['min']
@@ -51,6 +55,8 @@ def printbut(button, elem):
 		if bmin <= elem[0] <= bmax and bmin <= elem[1] <= bmax and bmin <= elem[2] <= bmax:
 			#print('BUTTON PRESSED: ', but, " values:",elem[0],", ",elem[1],", ",elem[2]);
 			print(but)
+			lastBut["time"] = time.time()
+			lastBut["but"] = but
 			do(but)
 			break;
 

@@ -29,19 +29,19 @@
 }
 
 .pButtons {
-    float: left;
-    clear: both;
-}
 
+}
+/*
 .pButtons .pAction {
-    float: left;
-    padding: 2px;
     margin: 6px;
-    height: 20px;   
-    border: 1px solid gray; 
-    font-size: 11px;
 }
 
+.pButtons .pAction span { 
+    font-size: 20px;
+    padding: 4px;
+    border: 1px solid grey;
+}
+*/
 .clicked {
     background-color: sandybrown;
 }

@@ -1,0 +1,87 @@
+<div>    
+    <div class="row">
+        <div class="col-xs-1 col-md-3"></div>
+        <div class="col-xs-2 col-md-1 pAction"">
+            <button type="button" class="btn btn-default" ng-click="player.action('prev')">
+                <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="col-xs-2 col-md-1 pAction">
+            <button type="button" class="btn btn-default" ng-click="player.action('stop')">
+                <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="col-xs-2 col-md-1 pAction">
+            <button type="button" class="btn btn-default" ng-click="player.action('play')">
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="col-xs-2 col-md-1 pAction">
+            <button type="button" class="btn btn-default" ng-click="player.action('pause')">
+                <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="col-xs-2 col-md-1 pAction">
+            <button type="button" class="btn btn-default" ng-click="player.action('next')">
+                <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="pAction" ng-click="player.get('state')">get state</div>
+        <div class="pAction" ng-click="player.get('volume')">get volume</div>
+        <div class="pAction" ng-click="player.get('current-song')">get current</div>
+        <div class="pAction" ng-click="player.get('current-song-time')">get current time</div>
+        <div class="pAction" ng-click="player.get('queue')">get queue</div>
+        <div class="pAction" ng-click="player.loadPlaylist()">load playlist</div>
+        <div class="pAction" ng-click="player.clearQueue()">clear queue</div>
+    </div>
+
+    <div class="row panel-body">
+       <div>
+          <table class="table table-striped table-hover">
+             <thead>
+                <tr>
+                   <th>
+                      <input type="checkbox" ng-model="grid.selectAll" ng-change="onSelectAll(grid.selectAll)" /></th>
+                   <th>Artist</th>
+                   <th>Title</th>
+                   <th>File</th>
+                </tr>
+             </thead>
+             <tbody>
+                <tr ng-repeat="row in player.queue" class="{{ row.selected ? 'active' : '' }}">
+                   <td>{{row.artist}}</td>
+                   <td>{{row.title}}</td>
+                   <td>{{row.file}}</td>
+                </tr>
+             </tbody>
+          </table>
+          <a class="btn btn-success" ng-click="addSelectedItemsToPlaylist()">Add to playlist</a>
+       </div>
+    </div>
+ </div>
+
+<!--
+    <br/><br/>
+    <div class="">
+        <div><label for="playlistId">PlaylistId</label><input id="playlistId" type="text" ng-model="player.playlistId" /></div>
+        <div><label for="playerState">Estado</label><input id="playerState" type="text" ng-model="player.state" /></div>
+        <div><label for="playervol">Estado</label><input id="playervol" type="text" ng-model="player.volume" /></div>
+        <div><label for="playercurr">Estado</label><input id="playercurr" type="text" ng-model="player['current-song'].title" /></div>
+        <div><label for="playertime">Estado</label><input id="playertime" type="text" ng-model="player['current-song-time']" /></div>
+    </div>
+    <br/><br/>
+    <div class="">
+    <p>Queue</p>
+    <table border="1">
+        <tr ng-repeat="row in player.queue">
+            <td>{{row.artist}}</td>
+            <td>{{row.title}}</td>
+            <td>{{row.file}}</td>
+        </tr>
+    </table>
+    </div>
+-->
+</div>

@@ -9,19 +9,19 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
         //$locationProvider.html5Mode({ enabled: true, requireBase: false });
         
         $routeProvider
-            .when('/view1', {
-                templateUrl: 'view1/view1.html',
-                controller: 'View1Ctrl as ctrl'
+            .when('/recorder', {
+                templateUrl: 'views/recorder/recorder.html',
+                controller: 'RecorderCtrl as ctrl'
                 })
-            .when('/view2', {
-                templateUrl: 'view2/view2.html',
-                controller: 'View2Ctrl'
+            .when('/player', {
+                templateUrl: 'views/player/player.html',
+                controller: 'PlayerCtrl'
                 })
         //    .when('/', {
         //    templateUrl : 'partials/home.html',
         //    controller : mainController
         //})
-            .otherwise({ redirectTo: '/view1' });
+            .otherwise({ redirectTo: '/recorder' });
     }])
 .constant('APP_CONFIG', {
     urlMpdWs: '', 

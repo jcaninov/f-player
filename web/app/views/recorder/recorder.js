@@ -17,13 +17,13 @@ angular.module('myApp.recorder',[])
         if (typeof (EventSource) !== "undefined") {
             var source = new EventSource(config.urlMpdWs + '/update-stream');
             source.addEventListener('message', function (e) {
-                $scope.datos = JSON.parse(event.data);
+                $scope.datos = JSON.parse(e.data);
                 if (!$scope.$$phase) {
                     $scope.$apply();
                 }
             });
             source.addEventListener('error', function (e) {
-                console.log("EventSource Error: " + event);
+                console.log("EventSource Error: " + e);
             });
         } else {
             // Sorry! No server-sent events support..

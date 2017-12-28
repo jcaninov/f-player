@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('myApp.view2', [])
+angular.module('myApp.player', [])
 
-.controller('View2Ctrl', ['$http', 'APP_CONFIG', '$scope', function($http, config, $scope) {
+.controller('PlayerCtrl', ['$http', 'APP_CONFIG', '$scope', function($http, config, $scope) {
     $scope.player = {};
 	$scope.player.playlistId = "123213DEPR",
 	$scope.player.queue = [];

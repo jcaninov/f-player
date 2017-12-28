@@ -13,7 +13,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-   <link rel="stylesheet" href="bower_components/bootswatch-paper-wiredep/dist/bootstrap.css">
+   <link rel="stylesheet" href="css/paper.bootstrap.css">
    <link rel="stylesheet" href="css/app.css">
    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
    <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -22,26 +22,27 @@
    <script src="bower_components/angular-route/angular-route.js"></script>
    <script src="app.js"></script>
    <script src="app.config.js"></script>
-   <script src="view1/view1.js"></script>
-   <script src="view2/view2.js"></script>
+   <script src="views/recorder/recorder.js"></script>
+   <script src="views/player/player.js"></script>
 </head>
 <body>
    <nav class="navbar navbar-inverse">
       <div class="container-fluid">
          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                <span class="sr-only">Toggle navigation</span>
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#!/view2"><span class="glyphicon glyphicon-expand glyphicon-align-left" aria-hidden="true"></span>&nbsp;f-player</a>
+            <a class="navbar-brand" href="#!/player"><span class="glyphicon glyphicon-expand glyphicon-align-left" aria-hidden="true"></span>&nbsp;f-player</a>
          </div>
 
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-            <ul class="nav navbar-nav navbar-left">
-               <!--<li class="active"><a href="#!/view1">Recorder <span class="sr-only">(current)</span></a></li>-->
-               <li><a href="#!/view1">Recorder</a></li>               
+            <ul class="nav navbar-nav">
+               <!--<li class="active"><a href="#!/recorder">Recorder <span class="sr-only">(current)</span></a></li>-->
+               <li><a href="#!/player">Player</a></li>  
+               <li><a href="#!/recorder">Recorder</a></li>               
                <!--               <li class="dropdown">
                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                                      <ul class="dropdown-menu" role="menu">

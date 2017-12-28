@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('myApp.view1',[])
+angular.module('myApp.recorder',[])
 
-.controller('View1Ctrl', ['$http', 'APP_CONFIG', '$scope', function($http, config, $scope) {
+.controller('RecorderCtrl', ['$http', 'APP_CONFIG', '$scope', function($http, config, $scope) {
     $scope.datos = [],
 	$scope.playlist = [],
 	$scope.grid = {},

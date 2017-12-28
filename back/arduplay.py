@@ -11,7 +11,6 @@ ser=serial.Serial('/dev/ttyACM0',9600)
 
 mode="client"
 #mode="url"
-lastEntry = { "time": time.time(), "but": '' }
 
 def execute():
 	#print(button)
@@ -45,9 +44,10 @@ def printRfid(elem):
 	dovalue("playlist", rfid)
 
 def printbut(button, elem):
-	global lastEntry
-	if (time.time() == lastBut["time"]):
-		return
+	global lastBut
+	timeNow = getTimeNow()
+	timeDiff = timeNow - lastBut['time']
+	print('{0} - {1} = {2}'.format(timeNow, lastBut['time'], timeDiff))
 	print(elem);
 	for but in button:
 		bmin = button[but]['min']
@@ -55,7 +55,9 @@ def printbut(button, elem):
 		if bmin <= elem[0] <= bmax and bmin <= elem[1] <= bmax and bmin <= elem[2] <= bmax:
 			#print('BUTTON PRESSED: ', but, " values:",elem[0],", ",elem[1],", ",elem[2]);
 			print(but)
-			lastBut["time"] = time.time()
+			if timeDiff == 0:
+				return
+			lastBut["time"] = getTimeNow()
 			lastBut["but"] = but
 			do(but)
 			break;
@@ -87,7 +89,11 @@ def dovalue(action, value):
 
 def dompd(action, *value):
 	if (action=="play"):
-		mpdclient.play()
+		status = mpdclient.status()
+		if status['state'] == 'play':
+			mpdclient.pause()
+		else:
+			mpdclient.play()
 	elif (action=="stop"):
 		mpdclient.stop()
 	elif (action=="next"):
@@ -140,7 +146,7 @@ def getButtons():
 	button['next'] = { 'max':54, 'min': 49 }
 	button['prev'] = { 'max':94, 'min': 85 }
 	button['stop'] = { 'max':734, 'min': 710 }
-	button['play'] = { 'max':175, 'min': 169 }
+	button['play'] = { 'max':182, 'min': 169 }
 	button['sound'] = { 'max':7, 'min': 6 }	
 	button['preset +'] = { 'max':9, 'min': 8 }
 	button['preset -'] = { 'max':3, 'min': 2 }
@@ -150,7 +156,7 @@ def getButtons():
 	#	button['standby'] = { 'max':17, 'min': 16 }
 	#	button['tun/time'] = { 'max':3, 'min': 2 }
 	#	button['summer'] = { 'max':30, 'min': 29 }
-	button['band'] = { 'max':182, 'min': 177 }
+	#=play	button['band'] = { 'max':182, 'min': 177 }
 	#	button['tun/time -'] = { 'max':8, 'min': 7 }
 	#	button['locm'] = { 'max':50, 'min': 49 }
 	#	button['function'] = { 'max':690, 'min': 692 }
@@ -172,6 +178,11 @@ def createMpdClient():
 def setMpdClient():
 	global mpdclient
 	mpdclient = createMpdClient()
+
+def getTimeNow():
+	return round(time.time())
+
+lastBut = { "time": getTimeNow() , "but": '' }
 
 mpdclient = createMpdClient()
 button = getButtons()
